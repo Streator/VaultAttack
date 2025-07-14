@@ -1,66 +1,19 @@
-## Foundry
+## Solidity interview DeFi engineer
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+### Exercise 1: Vault Attack
 
-Foundry consists of:
+VaultAttack.s.sol script claims ether from the vault by reading `hiddenPassword` and `salt` from private vars.
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+## Exercise 2: Unexpected Ether
 
-## Documentation
+### SimpleGameAttacker.sol
+A contract that demonstrates an attack on `SimpleGame`. It uses `EtherSender` to forcibly send Ether to the game contract, reaching the 1 Ether threshold without following the intended deposit logic, and then claims the reward.
 
-https://book.getfoundry.sh/
+### EtherSender.sol
+A utility contract that allows forcibly sending Ether to any address using the `selfdestruct` opcode. This is useful for bypassing normal transfer restrictions and is often used in attack or test scenarios.
 
-## Usage
+### SimpleGame.sol
+An original simple game contract
 
-### Build
-
-```shell
-$ forge build
-```
-
-### Test
-
-```shell
-$ forge test
-```
-
-### Format
-
-```shell
-$ forge fmt
-```
-
-### Gas Snapshots
-
-```shell
-$ forge snapshot
-```
-
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+### SimpleGameFixed.sol
+An improved version of `SimpleGame` that tracks the total deposited amount internally, rather than relying on the contract's Ether balance. This prevents attacks that use forced Ether transfers to bypass the deposit logic.
